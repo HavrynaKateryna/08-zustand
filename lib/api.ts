@@ -2,6 +2,7 @@ import axios from "axios";
 import type {
   NewNote,
   Note,
+  NoteTag,
 } from "../types/note";
 interface AxiosNotesResponse {
   notes: Note[];
@@ -31,7 +32,8 @@ export const fetchNotes = async (
         ...(query.trim()
           ? { search: query }
           : {}),
-        ...(tag ? { tag } : {}),
+        tag:
+          tag === "all" || !tag ? undefined : tag,
       },
     });
   return response.data;
